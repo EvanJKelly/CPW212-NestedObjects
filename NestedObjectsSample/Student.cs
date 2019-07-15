@@ -11,16 +11,46 @@ namespace NestedObjectsSample
     /// </summary>
     class Student
     {
+        private string _fullName;
+        private string _emailAddress;
+        public Student(string fullName)
+        {
+            FullName = fullName;
+        }
         /// <summary>
         /// The legal first and last
         /// ex. J Doe
         /// </summary>
-        public string FullName { get; set; }
+        public string FullName {
+            get { return _fullName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("FullName cannot be null or whitespce");
+                }
+                _fullName = value;
+            }
+        }
 
         /// <summary>
         /// The students school provided email address
         /// </summary>
-        public string EmailAddress { get; set; }
+        public string EmailAddress
+        {
+            get { return _emailAddress; }
+            set
+            {
+                if (value.EndsWith("@student.cptc.edu"))
+                {
+                    _emailAddress = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Email must end with @student.cptc.edu");
+                }
+            }
+        }
 
         /// <summary>
         /// Students mailing address
